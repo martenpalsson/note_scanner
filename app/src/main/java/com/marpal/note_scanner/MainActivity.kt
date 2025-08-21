@@ -305,6 +305,21 @@ fun NotesView(modifier: Modifier = Modifier) {
     
     var sortType by remember { mutableStateOf(SortType.TIMESTAMP_DESC) }
     var showSortMenu by remember { mutableStateOf(false) }
+    var showTitleDialog by remember { mutableStateOf(false) }
+    var capturedImagePath by remember { mutableStateOf<String?>(null) }
+    var titleText by remember { mutableStateOf("") }
+    
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val imagePath = result.data?.getStringExtra("image_path")
+            imagePath?.let {
+                capturedImagePath = it
+                showTitleDialog = true
+            }
+        }
+    }
     
     val sortedNotes = remember(notes, sortType) {
         when (sortType) {
@@ -335,48 +350,113 @@ fun NotesView(modifier: Modifier = Modifier) {
             }
         }
         
-        // Sort button and dropdown
-        Box(
+        // Bottom-right buttons
+        Column(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Sort button and dropdown
+            Box {
+                FloatingActionButton(
+                    onClick = { showSortMenu = true },
+                    modifier = Modifier.size(56.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Sort,
+                        contentDescription = "Sort options"
+                    )
+                }
+                
+                DropdownMenu(
+                    expanded = showSortMenu,
+                    onDismissRequest = { showSortMenu = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Title (A-Z)") },
+                        onClick = {
+                            sortType = SortType.TITLE
+                            showSortMenu = false
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Newest First") },
+                        onClick = {
+                            sortType = SortType.TIMESTAMP_DESC
+                            showSortMenu = false
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Oldest First") },
+                        onClick = {
+                            sortType = SortType.TIMESTAMP_ASC
+                            showSortMenu = false
+                        }
+                    )
+                }
+            }
+            
+            // Capture button
             FloatingActionButton(
-                onClick = { showSortMenu = true },
+                onClick = {
+                    val intent = Intent(context, CameraActivity::class.java)
+                    cameraLauncher.launch(intent)
+                },
                 modifier = Modifier.size(56.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Sort,
-                    contentDescription = "Sort options"
+                    imageVector = Icons.Default.CameraAlt,
+                    contentDescription = "Capture Image"
                 )
             }
-            
-            DropdownMenu(
-                expanded = showSortMenu,
-                onDismissRequest = { showSortMenu = false }
-            ) {
-                DropdownMenuItem(
-                    text = { Text("Title (A-Z)") },
-                    onClick = {
-                        sortType = SortType.TITLE
-                        showSortMenu = false
+        }
+        
+        // Title dialog for captured images
+        if (showTitleDialog) {
+            AlertDialog(
+                onDismissRequest = { 
+                    showTitleDialog = false
+                    titleText = ""
+                    capturedImagePath = null
+                },
+                title = { Text("Add Title") },
+                text = {
+                    OutlinedTextField(
+                        value = titleText,
+                        onValueChange = { titleText = it },
+                        label = { Text("Enter title for your note") }
+                    )
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            val currentTitle = titleText
+                            capturedImagePath?.let { imagePath ->
+                                scope.launch {
+                                    saveNoteToDatabase(context, imagePath, currentTitle)
+                                }
+                            }
+                            showTitleDialog = false
+                            titleText = ""
+                            capturedImagePath = null
+                        }
+                    ) {
+                        Text("Save")
                     }
-                )
-                DropdownMenuItem(
-                    text = { Text("Newest First") },
-                    onClick = {
-                        sortType = SortType.TIMESTAMP_DESC
-                        showSortMenu = false
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = {
+                            showTitleDialog = false
+                            titleText = ""
+                            capturedImagePath = null
+                        }
+                    ) {
+                        Text("Cancel")
                     }
-                )
-                DropdownMenuItem(
-                    text = { Text("Oldest First") },
-                    onClick = {
-                        sortType = SortType.TIMESTAMP_ASC
-                        showSortMenu = false
-                    }
-                )
-            }
+                }
+            )
         }
     }
 }
