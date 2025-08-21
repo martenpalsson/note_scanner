@@ -180,16 +180,13 @@ fun SideMenu(onNavigate: (String) -> Unit) {
     }
 }
 
+
 @Composable
 fun MainContent(currentView: String, modifier: Modifier = Modifier) {
-    when (currentView) {
-        "Capture" -> NotesView(modifier = modifier)
-        "Notes" -> NotesView(modifier = modifier)
-        else -> DefaultView(currentView = currentView, modifier = modifier)
-    }
+    NotesView(modifier = modifier)
 }
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotesView(modifier: Modifier = Modifier) {
     val context = androidx.compose.ui.platform.LocalContext.current
@@ -223,7 +220,19 @@ fun NotesView(modifier: Modifier = Modifier) {
         }
     }
 
-    Box(modifier = modifier.fillMaxSize()) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = { Text("Note Scanner") }
+            )
+        }
+    ) { innerPadding ->
+        Box(modifier = modifier
+            .fillMaxSize()
+            .padding(innerPadding)
+            .background(Color.Gray)
+        ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -248,7 +257,8 @@ fun NotesView(modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp),
+                .padding(16.dp)
+                .padding(bottom = 48.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // Sort button and dropdown
@@ -351,6 +361,7 @@ fun NotesView(modifier: Modifier = Modifier) {
                     }
                 }
             )
+        }
         }
     }
 }
