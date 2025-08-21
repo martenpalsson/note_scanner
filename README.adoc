@@ -1,0 +1,82 @@
+= Handwritten Note Scanner App
+
+An Android application for scanning handwritten notes and converting them to digital text format using OCR technology.
+
+== Project Overview
+
+This is a hobby project to create an Android app that can:
+
+* Capture images of handwritten notes using the device camera
+* Process the images using OCR (Optical Character Recognition)
+* Extract and digitize handwritten text
+* Export the recognized text to various file formats
+* Provide a user-friendly interface for managing scanned notes
+
+== Project Status
+
+Currently in the planning and initial development phase. This is a hobby project with no set deadline.
+
+== Technology Stack
+
+*Platform:* Android  
+*Language:* Kotlin  
+*UI Framework:* Jetpack Compose with Material3  
+*OCR Engine:* Google ML Kit (planned)  
+*Image Processing:* TBD  
+*Storage:* Local device storage  
+
+== Development Environment
+
+*Target SDK:* 36  
+*Minimum SDK:* 35  
+*Compile SDK:* 35  
+*Java Version:* 11  
+*Build System:* Gradle with Version Catalogs  
+*IDE:* Android Studio  
+*Compose BOM:* 2024.09.00  
+*Kotlin:* 2.0.21  
+
+== Features (Planned)
+
+* Camera integration for note capture
+* Image preprocessing and enhancement
+* Handwriting recognition and OCR
+* Text editing and correction interface
+* Export to multiple formats (TXT, PDF, etc.)
+* Note organization and management
+* Offline functionality
+
+== Development Guidelines
+
+When working on this project:
+
+* Focus on user experience and accessibility
+* Optimize for various handwriting styles
+* Consider image quality and lighting conditions
+* Implement proper error handling for OCR failures
+* Follow Android development best practices
+* Test on multiple device sizes and orientations
+
+== Getting Started
+
+=== Prerequisites
+* Android Studio installed with SDK 35+
+* Android device or emulator with API level 35+
+
+=== Build and Run
+. Clone the project
+. Open in Android Studio
+. Sync project with Gradle files
+. Build: `./gradlew build`
+. Install on device/emulator: `./gradlew installDebug`
+
+=== Project Structure
+The project uses standard Android structure with Jetpack Compose:
+* `app/src/main/java/com/marpal/note_scanner/` - Main source code
+* `MainActivity.kt` - Entry point with Compose UI
+* `ui/theme/` - Compose theming (Color, Theme, Type)
+* Modern Gradle build configuration with Version Catalogs
+
+== Original Development Plan
+
+Initial planning discussion: https://claude.ai/public/artifacts/9abdfa7f-650e-4e7c-a698-0f7346471495
