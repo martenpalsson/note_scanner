@@ -103,7 +103,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Note_scannerTheme {
-                MainScreen()
+                NotesView()
             }
         }
     }
@@ -140,19 +140,7 @@ fun MainScreen() {
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
-                    title = { Text("Note Scanner") },
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            scope.launch {
-                                drawerState.open()
-                            }
-                        }) {
-                            Icon(
-                                imageVector = Icons.Default.Menu,
-                                contentDescription = "Menu"
-                            )
-                        }
-                    }
+                    title = { Text("Note Scanner") }
                 )
             }
         ) { innerPadding ->
@@ -195,106 +183,12 @@ fun SideMenu(onNavigate: (String) -> Unit) {
 @Composable
 fun MainContent(currentView: String, modifier: Modifier = Modifier) {
     when (currentView) {
-        "Capture" -> CaptureView(modifier = modifier)
+        "Capture" -> NotesView(modifier = modifier)
         "Notes" -> NotesView(modifier = modifier)
         else -> DefaultView(currentView = currentView, modifier = modifier)
     }
 }
 
-@Composable
-fun CaptureView(modifier: Modifier = Modifier) {
-    val context = androidx.compose.ui.platform.LocalContext.current
-    val scope = rememberCoroutineScope()
-    var showTitleDialog by remember { mutableStateOf(false) }
-    var capturedImagePath by remember { mutableStateOf<String?>(null) }
-    var titleText by remember { mutableStateOf("") }
-    
-    val cameraLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val imagePath = result.data?.getStringExtra("image_path")
-            imagePath?.let {
-                capturedImagePath = it
-                showTitleDialog = true
-            }
-        }
-    }
-    
-    Box(modifier = modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "Capture",
-                style = MaterialTheme.typography.headlineMedium
-            )
-        }
-        
-        FloatingActionButton(
-            onClick = {
-                val intent = Intent(context, CameraActivity::class.java)
-                cameraLauncher.launch(intent)
-            },
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.CameraAlt,
-                contentDescription = "Capture Image"
-            )
-        }
-        
-        if (showTitleDialog) {
-            AlertDialog(
-                onDismissRequest = { 
-                    showTitleDialog = false
-                    titleText = ""
-                    capturedImagePath = null
-                },
-                title = { Text("Add Title") },
-                text = {
-                    OutlinedTextField(
-                        value = titleText,
-                        onValueChange = { titleText = it },
-                        label = { Text("Enter title for your note") }
-                    )
-                },
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            val currentTitle = titleText
-                            capturedImagePath?.let { imagePath ->
-                                scope.launch {
-                                    saveNoteToDatabase(context, imagePath, currentTitle)
-                                }
-                            }
-                            showTitleDialog = false
-                            titleText = ""
-                            capturedImagePath = null
-                        }
-                    ) {
-                        Text("Save")
-                    }
-                },
-                dismissButton = {
-                    TextButton(
-                        onClick = {
-                            showTitleDialog = false
-                            titleText = ""
-                            capturedImagePath = null
-                        }
-                    ) {
-                        Text("Cancel")
-                    }
-                }
-            )
-        }
-    }
-}
 
 @Composable
 fun NotesView(modifier: Modifier = Modifier) {
