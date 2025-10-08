@@ -68,6 +68,9 @@ dependencies {
     // Image loading
     implementation(libs.coil.compose)
     
+    // ML Kit Text Recognition
+    implementation(libs.mlkit.text.recognition)
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -190,12 +190,29 @@ app/src/main/java/com/marpal/note_scanner/
 - **List Performance**: Efficient LazyColumn with proper key handling
 - **State Optimization**: Minimize recomposition with proper state management
 
+### UI Implementation Details
+
+#### Progress Indicators
+- **OCR Progress**: Spinner overlay in lower right corner of note thumbnails
+- **Scroll Indicator**: Modern scroll indicator for list views
+- **Export Progress**: Loading states during export operations
+
+#### Note Status Indicators
+- **Processing**: Spinner during OCR extraction
+- **Success**: Green checkmark when OCR completed successfully
+- **Failed**: Red cross with retry option for failed OCR
+- **No Text**: Gray icon when no text detected
+
+#### Text Editing Screen
+- **Layout**: Full-screen editor with top app bar
+- **Toolbar**: Formatting controls (Bold, Italic, Underline)
+- **Navigation**: Back button in top app bar + hardware back support
+- **Auto-save**: Real-time saving with visual confirmation
+
 ### Future UI Considerations
-- **OCR Text Display**: Text editing interface for parsed content
-- **Note Detail View**: Dedicated view for editing and viewing note details
-- **Export UI**: Interface for selecting and configuring export options
 - **Search Interface**: Search bar and filtering capabilities
 - **Settings Screen**: App configuration and preferences
+- **Batch Selection**: Multi-select interface for batch operations
 
 ## Core Features
 
@@ -213,6 +230,36 @@ app/src/main/java/com/marpal/note_scanner/
 - Export to multiple formats (TXT, PDF, etc.)
 - Note organization and management
 - Offline functionality
+
+### Feature Specifications
+
+#### Text Extraction (OCR)
+- **Technology**: Google ML Kit Text Recognition
+- **Timing**: 
+  - Automatic: Immediately after image capture
+  - Manual: On-demand retry option for failed extractions
+- **Progress Indication**: Spinner in lower right corner of image thumbnail
+- **Error Handling**: Retry mechanism for failed OCR attempts
+
+#### Text Editing Interface
+- **Screen Type**: Separate dedicated editing screen
+- **Navigation**: 
+  - Open: Click note item in list (after OCR completion)
+  - Back: Hardware back button or top app bar back button
+  - Return to: Notes list view
+- **Editing Features**:
+  - Basic text manipulation (copy, paste, add/remove text)
+  - Line management (add/remove new lines)
+  - Text formatting: Bold, Italic, Underline toggles
+- **Auto-save**: Changes saved automatically to database
+
+#### Export Functionality
+- **Supported Formats**: TXT, PDF
+- **Export Options**:
+  - Per-note: From editing screen
+  - Batch export: From notes list view
+- **Storage Location**: User-selectable folder with Downloads as default
+- **File Naming**: Note title + timestamp + format extension
 
 ## Development Guidelines
 

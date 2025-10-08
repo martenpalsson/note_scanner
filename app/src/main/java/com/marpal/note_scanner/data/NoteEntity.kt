@@ -10,5 +10,6 @@ data class NoteEntity(
     val imagePath: String,
     val timestamp: Long,
     val title: String,
-    val parsedText: String = ""
+    val parsedText: String = "",
+    val ocrStatus: String = "pending" // "pending", "processing", "completed", "failed"
 )

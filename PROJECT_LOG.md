@@ -9,8 +9,33 @@
 - Current state of the app
   - Basic UI done
   - No business logic implemented yet
-- Any known issues or next steps
-  - Add text extraction from images to app
-  - Add text manipulation to app
-  - Add text export to app
-  - Add scroll indicator and prettify UI
+- Next steps (Text Extraction Implementation)
+  - [x] Add Google ML Kit Text Recognition dependency
+  - [x] Update database schema to track OCR status
+  - [x] Add database migration for schema changes
+  - [x] Create OCR service for text extraction
+  - [x] Update UI to show OCR progress indicators
+  - [x] Implement automatic OCR after image capture
+  - [x] Add retry mechanism for failed OCR
+  - [x] Update note list items to show OCR status
+  - [x] Add text manipulation to app
+    - [x] Create text editing screen with formatting toolbar
+    - [x] Implement navigation from notes list to editing screen
+    - [x] Add auto-save functionality
+    - [x] Support for Bold, Italic, Underline formatting
+    - [x] Back button navigation support
+  - [x] Add text export to app
+    - [x] Create ExportService for TXT and PDF export
+    - [x] Add file storage permissions
+    - [x] Implement per-note export from editing screen
+    - [x] Add batch export from notes list view
+    - [x] Export to Downloads folder with proper file naming
+    - [x] Export dialogs and progress handling
+  - [x] Add scroll indicator and prettify UI
+    - [x] Created modern scroll indicator with auto-hide functionality
+    - [x] Enhanced Material3 theming and color schemes
+    - [x] Improved FloatingActionButton styling with shadows and proper colors
+    - [x] Updated note cards with Material3 Card components and elevation
+    - [x] Enhanced OCR status indicators with theme-appropriate colors
+    - [x] Added empty state with helpful messaging for first-time users
+    - [x] Improved overall visual hierarchy and spacing
