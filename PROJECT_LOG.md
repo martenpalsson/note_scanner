@@ -1,0 +1,16 @@
+- Important features implemented
+  - Added functionality to:
+    - Take pictures and storing them with a timestamp and a title in a database.
+    - List the captured pictures and added sorting to the list
+    - Remove items from the list
+- Major architectural decisions
+  - Single page application to simplify workflow and increase usability
+  - Store images together with metadata and the extracted notes in a database for persistance
+- Current state of the app
+  - Basic UI done
+  - No business logic implemented yet
+- Any known issues or next steps
+  - Add text extraction from images to app
+  - Add text manipulation to app
+  - Add text export to app
+  - Add scroll indicator and prettify UI

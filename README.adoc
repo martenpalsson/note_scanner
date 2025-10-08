@@ -40,7 +40,7 @@ Currently in the planning and initial development phase. This is a hobby project
 
 * Camera integration for note capture
 * Image preprocessing and enhancement
-* Handwriting recognition and OCR
+* Handwriting recognition and OCR of captured images and text extraction 
 * Text editing and correction interface
 * Export to multiple formats (TXT, PDF, etc.)
 * Note organization and management
@@ -55,6 +55,7 @@ When working on this project:
 * Consider image quality and lighting conditions
 * Implement proper error handling for OCR failures
 * Follow Android development best practices
+* Follow Google Materials design guidelines when designing UI
 * Test on multiple device sizes and orientations
 
 == Getting Started
