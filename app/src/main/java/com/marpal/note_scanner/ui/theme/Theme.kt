@@ -14,17 +14,19 @@ import androidx.compose.ui.platform.LocalContext
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    tertiary = Pink80,
+    background = MarineBlueDark,
+    surface = MarineBlueDark
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
-    tertiary = Pink40
+    tertiary = Pink40,
+    background = MarineBlueLight,
+    surface = MarineBlueLight
 
     /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
@@ -37,7 +39,7 @@ private val LightColorScheme = lightColorScheme(
 fun Note_scannerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,  // Disabled to use our custom marine blue background
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

@@ -62,12 +62,12 @@ class ExportService(private val context: Context) {
             FileWriter(file).use { writer ->
                 writer.write("Batch Export - ${SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault()).format(Date())}\n")
                 writer.write("Total Notes: ${notes.size}\n")
-                writer.write("=" * 50 + "\n\n")
+                writer.write("=".repeat(50) + "\n\n")
                 
                 notes.forEachIndexed { index, note ->
                     writer.write("Note ${index + 1}: ${note.title}\n")
                     writer.write("Date: ${SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault()).format(Date(note.timestamp))}\n")
-                    writer.write("-" * 30 + "\n")
+                    writer.write("-".repeat(30) + "\n")
                     writer.write(note.parsedText)
                     writer.write("\n\n")
                 }

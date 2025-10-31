@@ -1,7 +1,18 @@
 {
   "permissions": {
     "allow": [
-      "Bash(./gradlew:*)"
+      "Bash(./gradlew:*)",
+      "Bash(java:*)",
+      "Bash(echo:*)",
+      "Bash(find:*)",
+      "Bash(zipinfo:*)",
+      "Bash(unzip:*)",
+      "Bash(aapt dump badging:*)",
+      "Bash(cat:*)",
+      "Bash(adb devices:*)",
+      "Bash(adb shell:*)",
+      "Bash(adb logcat:*)",
+      "Bash($ANDROID_HOME/platform-tools/adb devices)"
     ],
     "deny": [],
     "ask": []

@@ -242,16 +242,28 @@ app/src/main/java/com/marpal/note_scanner/
 - **Error Handling**: Retry mechanism for failed OCR attempts
 
 #### Text Editing Interface
-- **Screen Type**: Separate dedicated editing screen
-- **Navigation**: 
+- **Screen Type**: Separate dedicated editing screen with swipeable image viewer
+- **Navigation**:
   - Open: Click note item in list (after OCR completion)
   - Back: Hardware back button or top app bar back button
   - Return to: Notes list view
-- **Editing Features**:
+- **Swipeable View System**:
+  - **Page 0 (Text Editor)**: Default view showing extracted text with editing capabilities
+  - **Page 1 (Image Viewer)**: Full-screen view of the captured note image
+  - **Swipe Right**: From text editor to view the original captured image
+  - **Swipe Left**: From image viewer to return to text editor
+  - **Navigation**: Swipe gesture only (no toolbar navigation buttons for simplicity)
+- **Editing Features** (Text Editor Page):
   - Basic text manipulation (copy, paste, add/remove text)
   - Line management (add/remove new lines)
-  - Text formatting: Bold, Italic, Underline toggles
-- **Auto-save**: Changes saved automatically to database
+  - Plain text editing (text formatting features reserved for future enhancement)
+- **Image Viewer Features**:
+  - Full-screen image display with black background
+  - Fit-to-screen scaling for optimal viewing
+  - Error handling for missing image files
+  - On-screen hint: "Swipe to return to text"
+- **Auto-save**: Changes saved automatically to database with 500ms debouncing
+- **Export Feedback**: Snackbar notifications for export success/failure
 
 #### Export Functionality
 - **Supported Formats**: TXT, PDF
@@ -286,10 +298,13 @@ app/src/main/java/com/marpal/note_scanner/
 
 ## Project Status
 Currently in active development phase. Recent work includes:
-- Implementation of notes view as main interface
+- Implementation of notes view as main interface with calm marine blue background
+- Swipeable text/image viewer in note editing screen
+- Full-screen image viewing capability
 - Removal of capture view from codebase
 - Addition of capture button to notes view
 - Basic notes management functionality
+- ADB over WiFi deployment setup for WSL development
 
 ## Development Context
 - This is a hobby project with no set deadline
